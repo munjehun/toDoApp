@@ -6,9 +6,9 @@ app.listen(8080, function () {
   console.log("📡 서버 연결 됨 📡");
 });
 
-app.get("/pet", function (req, res) {
-  res.send("펫용품 쇼핑 사이트입니다.");
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/index.html");
 });
-app.get("/beauty", function (req, res) {
-  res.send("뷰티용품 쇼핑 사이트입니다.");
+app.get("/write", function (req, res) {
+  res.sendFile(__dirname + "/write.html");
 });
