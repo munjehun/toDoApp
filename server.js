@@ -6,6 +6,7 @@ app.listen(8080, function () {
   console.log("📡 서버 연결 됨 📡");
 });
 
+// __dirname : 현재 실행 중인 폴더 경로
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
