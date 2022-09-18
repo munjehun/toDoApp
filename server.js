@@ -47,7 +47,7 @@ app.post("/newpost", function (req, res) {
 
   db.collection("post").insertOne(
     //post 라는 collection에 insertOne
-    { "할 일": req.body.title, 날짜: req.body.date },
+    { 할일: req.body.title, 날짜: req.body.date },
     function (err, result) {
       console.log("저장완료");
     }
