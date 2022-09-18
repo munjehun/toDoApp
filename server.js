@@ -13,7 +13,7 @@ MongoClient.connect(
 
     db = client.db("todoApp");
 
-    //listen(서버를 오픈할 포트번호, function(){서버 오픈시 실행할 코드})
+    //mongodb가 연결되면 서버 연결
     app.listen(8080, function () {
       console.log("📡 서버 연결 됨 📡");
     });
