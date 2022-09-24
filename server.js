@@ -41,7 +41,7 @@ app.get("/list", function (req, res) {
       console.log(result);
 
       res.render("list.ejs", { posts: result });
-      //posts라는 배열을 만들고 result를 넣는다.
+      // result를 posts라는 이름으로 ejs에 보낸다.
     });
 });
 
@@ -50,18 +50,21 @@ app.post("/newpost", function (req, res) {
   res.send("전송완료"); //화면에 '전송완료' 띄우기
   console.log(req.body);
 
+  // 기존 게시물 번호 불러와서 변수에 할당
   db.collection("counter").findOne(
     { name: "게시물 갯수" },
     function (err, result) {
       console.log("추가 전 총 게시물 갯수 : ", result.totalPost);
       var count = result.totalPost;
 
+      // 할 일 추가
       db.collection("post").insertOne(
         //post 라는 collection에 insertOne
         { _id: count + 1, 할일: req.body.title, 날짜: req.body.date },
         function (err, result) {
           console.log("저장완료");
 
+          // 게시물 번호 +1 업데이트
           db.collection("counter").updateOne(
             { name: "게시물 갯수" },
             { $inc: { totalPost: 1 } }, //$set => 수정, $inc => 증가
