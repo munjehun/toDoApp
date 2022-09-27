@@ -38,7 +38,6 @@ app.get("/list", function (req, res) {
     .find() //find : 해당하는 자료 다 찾기
     .toArray(function (err, result) {
       //toArray() : 받은 자료를 배열화
-      console.log(result);
 
       res.render("list.ejs", { posts: result });
       // result를 posts라는 이름으로 ejs에 보낸다.
@@ -70,4 +69,13 @@ app.post("/newpost", function (req, res) {
       );
     }
   );
+});
+
+//할 일 삭제
+app.delete("/delete", function (req, res) {
+  req.body._id = parseInt(req.body._id);
+  console.log(req.body, "삭제");
+  db.collection("post").deleteOne(req.body, function (err, result) {
+    res.send("삭제 완료");
+  });
 });

@@ -10,7 +10,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <title>Hello, world!</title>
+    <title>할 일 리스트</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,22 +43,38 @@
       </div>
     </nav>
 
-    <!-- margine-left : 21, margin Y : 3 -->
-    <h2 class="ml-21 my-3">서버에서 가져온 할 일 리스트</h2>
+    <!-- margin-start(left) : 21, margin Y : 3 -->
+    <h2 class="ms-3 my-3">할 일 리스트</h2>
     
     <!-- 부트스트랩 list 사용 -->
     <ul class="list-group">
         <% for (let i = 0; i<posts.length; i++){ %>
         <li class="list-group-item"> 
+          <span>글 번호 : <%= posts[i]._id %></span>
           <h4>할 일 제목 : <%= posts[i].할일 %></h4>
           <p>할 일 마감 날짜 : <%= posts[i].날짜 %></p>
-          <button type="button" class="btn btn-danger">삭제</button>
+          <button type="button" class="btn btn-danger delete" data-id="<%= posts[i]._id %>">삭제</button>
         </li>
         <% } %>
     </ul>
 
-    <!-- AJAX : 새로고침 없이 서버에 요청하는걸 도와주는 JS문법 -->
-
+    <!-- AJAX : 새로고침 없이 서버에 요청하는 걸 도와주는 JS문법 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script> //jQuery 라이브러리 도움을 받은 ajax요청
+   
+      $('.delete').click(function(e){ //class가 delete인 요소를 클릭하면 ajax 실행
+        $.ajax({  //ajax 기본 문법
+        method : "DELETE",
+        url : '/delete',
+        data : {_id:e.target.dataset.id}
+      }).done(function(res){
+        console.log(res);
+      }).fail(function(err){
+        console.log(err);
+      })
+      })
+     
+    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
